@@ -8,6 +8,11 @@ include __DIR__."/model/Movie.php";
             <h2>
                 Movies
             </h2>
+            <div class="row">
+                <?php foreach ($movies as $movie) {
+                    echo $movie->cardPrinter();
+                } ?>
+            </div>
         </div>
     </main>
 <?php 
