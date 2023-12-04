@@ -4,7 +4,9 @@
 
 <div class="col-12 col-md-4 col-lg-3 my-3">
     <div class="card">
-        <img src="<?= $poster ?>" class="card-img-top my-ratio" alt="<?= $title ?>">
+        <div style="height: 450px" class=" overflow-hidden ">
+            <img src="<?= $poster ?>" class="card-img-top w-100  my-ratio" alt="<?= $title ?>">
+        </div>
         <div class="card-body">
             <h5 class="card-title">
                 <?= $title ?>
@@ -12,8 +14,8 @@
             <p class="card-text">
                 <?= $plot ?>
             </p>
-            <div class="d-flex justify-content-between align-items-flex-start">
-                <?= $other ?>
+            <div class="d-flex justify-content-between align-items-baseline">
+                <?= $genre ?>
                 <?= $rate ?>
                 <div style="width: 50px" class="rounded-3 overflow-hidden ">
                     <img class="w-100" src="<?= $flag ?>" alt="flag">

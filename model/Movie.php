@@ -1,4 +1,5 @@
 <?php 
+include __DIR__ ."/Genre.php";
 class Movie {
     public $id;
     public $title;
@@ -6,23 +7,25 @@ class Movie {
     public float $vote_average;
     public $original_language;
     public $poster_path;
+    public string $genre;
 
-    function __construct($id,$title,$overview,$original_language,$vote_average,$poster_path) {
+    function __construct($id,$title,$overview,$original_language,$vote_average,$poster_path, $genre) {
         $this->id = $id;
         $this->title = $title;
         $this->overview = $overview;
         $this->original_language = $original_language;
         $this->vote_average = $vote_average;
         $this->poster_path = $poster_path;
+        $this->genre = $genre;
     }
 
     function cardPrinter() {
         $poster = $this->poster_path;
         $title = $this->title;
         $plot = substr($this->overview, 0, 150) . "...";
-        $other = $this->original_language;
         $rate = $this->starPrinter();
         $flag = $this->flagPrinter();
+        $genre = $this->genre;
         include __DIR__ ."/../views/partials/card.php";
     }
 
@@ -44,6 +47,7 @@ class Movie {
         }
         return $flag;
     }
+    
 }
 
 //prendo dal json i dati che mi servono
@@ -53,9 +57,23 @@ $movieInfoList = json_decode($movieInfo, true);
 //creo un array in cui inserire i dati che ciclerò
 $movies = [];
 
+function rngGen($array) {
+    $rngNumber = rand(1,3);
+    $rngGenreString = "";
+    for($i=0; $i < $rngNumber; $i++) {
+        $rngValue = $array[rand(0, count($array) -1)]->name; 
+        if(!str_contains($rngGenreString, $rngValue)) {
+            $rngGenreString .= $rngValue . ' ';
+        };
+    }
+    return $rngGenreString;
+}
+
 //ciclo sugli el in array associandolo alla classe new Movie prendendo le info che mi servono ed associandole alle variabili in array della funzione all'interno della classe
 foreach($movieInfoList as $info) {
-    $movies[]= new Movie ($info['id'], $info['title'], $info['overview'], $info['original_language'], $info['vote_average'], $info['poster_path']);
+    $rngGenreValue = rngGen($gender);
+    // $rngGenre = $gender[rand(0, count($gender) -1)];
+    $movies[]= new Movie ($info['id'], $info['title'], $info['overview'], $info['original_language'], $info['vote_average'], $info['poster_path'], $rngGenreValue);
 };
 
 //lo stampo
